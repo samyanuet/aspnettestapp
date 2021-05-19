@@ -1,0 +1,97 @@
+﻿<style>
+    .main {
+        margin: auto;
+        width: 340px;
+        margin-top: 100px;
+        background-color: #edebeb;
+        text-align: center;
+    }
+
+        .main label {
+            display: inline-block;
+            text-align: right;
+            font-family: Arial;
+            color: black;
+            font-size: 24px;
+        }
+
+        .main input {
+            display: inline-block;
+            text-align: center;
+            font-family: Arial;
+            color: black;
+            font-size: 24px;
+        }
+
+    h1 {
+        font-family: Arial;
+        color: teal;
+        font-size: 68px;
+    }
+
+    button {
+        font-family: Arial;
+        background-color: teal;
+        color: white;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    body {
+        background-image: url("https://source.unsplash.com/1366x768/?nature,water");
+    }
+</style>
+
+
+<div class="main">
+    <h1>Student</h1>
+    <br>
+    <label for="stdName">Name</label>
+    <input type="text" name="Name" id="stdName">
+    <br>
+    <label for="regNo">Registration Number</label>
+    <input type="text" name="RegNo" id="regNo" style="margin-top: 15px;">
+    <br>
+    <label for="dob">Date of Birth</label>
+    <input type="date" name="DOB" id="dob" style="margin-top: 15px;">
+    <br>
+    <button type="submit" style="margin-top: 15px;" onclick="save()">OK</button>
+</div>
+@section scripts{
+    <script>
+        function save() {
+            var n = document.getElementById("stdName").value;
+            var reg = document.getElementById("regNo").value;
+            var date = document.getElementById("dob").value;
+
+
+            var obj = {
+                Name: n,
+                RegistrationNumber: reg,
+                DateOfBirth: date
+            };
+
+            var data = JSON.stringify(obj);
+            console.log(data);
+
+    
+
+
+            $.ajax({
+                url: "http://localhost:56514/api/Student/AddStudent",
+                type: 'POST',
+                data: JSON.stringify(obj),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (data) {
+                }
+            });
+
+            //	window.location = "";
+
+        }
+    </script>
+
+}
